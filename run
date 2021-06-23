@@ -2,6 +2,9 @@
 
 trap "echo Exited!; exit;" SIGINT SIGTERM
 
-while true; do
-  ag -g '\.rb$' | entr -c -d -p -s 'rubocop -A; ruby day_planner.rb'
-done
+# while true; do
+#   ag -g '\.rb$' | entr -c -d -p -s 'rubocop -A; ruby day_planner.rb'
+# done
+
+rubocop -A
+ruby day_planner.rb
