@@ -8,7 +8,8 @@ system "clear"
 
 def format_task(task)
   parsed_task = task.split
-  [parsed_task[0], parsed_task[1], parsed_task[2..]].join(" ")
+  start_time, end_time, *task_description = parsed_task
+  [start_time, end_time, task_description].join(" ")
 end
 
 store = YAML::Store.new("./task_list.yml")
