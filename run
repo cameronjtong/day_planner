@@ -1,3 +1,6 @@
 #!/bin/bash
+trap "echo Exited!; exit;" SIGINT SIGTERM
 
-ruby day_planner.rb
+while true; do
+  ag -g '\.rb$' | entr -c -d -p -s 'ruby day_planner.rb'
+done
