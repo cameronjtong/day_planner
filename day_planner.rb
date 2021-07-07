@@ -14,8 +14,12 @@ def format_task(task)
   [start_time, end_time, task_description].join(" ")
 end
 
+def test_mode?
+  true
+end
+
 def get_string
-  if true
+  if test_mode?
     test_input
   else
     gets
@@ -27,7 +31,7 @@ def test_input
 end
 
 def build_store
-  if true
+  if test_mode?
     YAML::Store.new("./task_list_test.yml")
   else
     YAML::Store.new("./task_list.yml")
