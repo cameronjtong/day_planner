@@ -12,18 +12,15 @@ class DayPlanner
   def main
     system "clear"
     store = build_store
-    @tasks = nil
-    store.transaction do
-      @tasks = store["tasks"] || []
-    end
+    read_tasks(store)
 
     loop do
       puts "-- Tasks --"
-      puts @tasks.map(&method(:format_task))
+      puts tasks.map(&method(:format_task))
       puts
       print "Enter Task Here => "
       input = get_string
-      @tasks << input
+      tasks << input
       store.transaction do
         store["tasks"] = tasks
       end
@@ -43,7 +40,11 @@ class DayPlanner
     end
   end
 
-  def read_tasks
+  def read_tasks(store)
+    @tasks = nil
+    store.transaction do
+      @tasks = store["tasks"] || []
+    end
   end
 
   def format_task(task)
