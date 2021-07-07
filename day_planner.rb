@@ -15,10 +15,8 @@ class DayPlanner
     read_tasks(store)
 
     loop do
-      puts "-- Tasks --"
-      puts tasks.map(&method(:format_task))
-      puts
-      print "Enter Task Here => "
+      display_tasks
+      display_prompt
       input = get_string
       tasks << input
       store.transaction do
@@ -45,6 +43,16 @@ class DayPlanner
     store.transaction do
       @tasks = store["tasks"] || []
     end
+  end
+
+  def display_tasks
+    puts "-- Tasks --"
+    puts tasks.map(&method(:format_task))
+    puts
+  end
+
+  def display_prompt
+    print "Enter Task Here => "
   end
 
   def format_task(task)
