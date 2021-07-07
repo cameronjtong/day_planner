@@ -7,21 +7,23 @@ require "yaml/store"
 class DayPlanner
   TEST_INPUTS = ["12:00 13:00 lift weights"]
 
+  attr_reader :tasks
+
   def main
     system "clear"
     store = build_store
-    tasks = nil
+    @tasks = nil
     store.transaction do
-      tasks = store["tasks"] || []
+      @tasks = store["tasks"] || []
     end
 
     loop do
       puts "-- Tasks --"
-      puts tasks.map(&method(:format_task))
+      puts @tasks.map(&method(:format_task))
       puts
       print "Enter Task Here => "
       input = get_string
-      tasks << input
+      @tasks << input
       store.transaction do
         store["tasks"] = tasks
       end
@@ -31,12 +33,17 @@ class DayPlanner
     end
   end
 
+  private
+
   def build_store
     if test_mode?
       YAML::Store.new("./task_list_test.yml")
     else
       YAML::Store.new("./task_list.yml")
     end
+  end
+
+  def read_tasks
   end
 
   def format_task(task)
