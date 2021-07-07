@@ -26,11 +26,15 @@ def test_input
   TEST_INPUTS.shift || exit
 end
 
+
+
 store = YAML::Store.new("./task_list.yml")
 tasks = nil
 store.transaction do
-  tasks = store["tasks"]
+  tasks = store["tasks"] || []
 end
+
+
 
 loop do
   puts "-- Tasks --"
@@ -42,5 +46,9 @@ loop do
   store.transaction do
     store["tasks"] = tasks
   end
+  if TEST_INPUTS.empty?
+    store.transaction { store["tasks"] = []}
+  end
+
   puts
 end
