@@ -7,36 +7,6 @@ require "yaml/store"
 class DayPlanner
   TEST_INPUTS = ["12:00 13:00 lift weights"]
 
-  def format_task(task)
-    parsed_task = task.split
-    start_time, end_time, *task_description = parsed_task
-    [start_time, end_time, task_description].join(" ")
-  end
-
-  def get_string
-    if test_mode?
-      test_input
-    else
-      gets
-    end
-  end
-
-  def test_mode?
-    true
-  end
-
-  def test_input
-    TEST_INPUTS.shift || exit
-  end
-
-  def build_store
-    if test_mode?
-      YAML::Store.new("./task_list_test.yml")
-    else
-      YAML::Store.new("./task_list.yml")
-    end
-  end
-
   def main
     system "clear"
     store = build_store
@@ -59,6 +29,36 @@ class DayPlanner
 
       puts
     end
+  end
+
+  def build_store
+    if test_mode?
+      YAML::Store.new("./task_list_test.yml")
+    else
+      YAML::Store.new("./task_list.yml")
+    end
+  end
+
+  def format_task(task)
+    parsed_task = task.split
+    start_time, end_time, *task_description = parsed_task
+    [start_time, end_time, task_description].join(" ")
+  end
+
+  def get_string
+    if test_mode?
+      test_input
+    else
+      gets
+    end
+  end
+
+  def test_mode?
+    true
+  end
+
+  def test_input
+    TEST_INPUTS.shift || exit
   end
 end
 
