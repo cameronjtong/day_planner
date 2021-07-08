@@ -18,9 +18,7 @@ class DayPlanner
       display_tasks
       display_prompt
       input_tasks
-      store.transaction do
-        store["tasks"] = tasks
-      end
+      write_tasks(store)
       store.transaction { store["tasks"] = [] } if TEST_INPUTS.empty?
 
       puts
@@ -57,6 +55,12 @@ class DayPlanner
   def input_tasks
     input = get_string
       tasks << input
+    end
+
+    def write_tasks(store)
+      store.transaction do
+        store["tasks"] = tasks
+      end
     end
 
   def format_task(task)
