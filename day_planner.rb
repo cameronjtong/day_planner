@@ -19,8 +19,7 @@ class DayPlanner
       display_prompt
       input_tasks
       write_tasks(store)
-      store.transaction { store["tasks"] = [] } if TEST_INPUTS.empty?
-
+      clear_tasks(store)
       puts
     end
   end
@@ -62,6 +61,11 @@ class DayPlanner
         store["tasks"] = tasks
       end
     end
+
+    def clear_tasks(store)
+      store.transaction { store["tasks"] = [] } if TEST_INPUTS.empty?
+    end
+
 
   def format_task(task)
     parsed_task = task.split
