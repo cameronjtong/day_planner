@@ -17,8 +17,7 @@ class DayPlanner
     loop do
       display_tasks
       display_prompt
-      input = get_string
-      tasks << input
+      input_tasks
       store.transaction do
         store["tasks"] = tasks
       end
@@ -54,6 +53,11 @@ class DayPlanner
   def display_prompt
     print "Enter Task Here => "
   end
+
+  def input_tasks
+    input = get_string
+      tasks << input
+    end
 
   def format_task(task)
     parsed_task = task.split
