@@ -5,7 +5,7 @@
 require "yaml/store"
 
 class DayPlanner
-  TEST_INPUTS = ["12:00 13:00 lift weights"]
+  TEST_INPUTS = ["12:00 13:00 lift weights", "14:00 14:45 read refactoring"]
 
   attr_reader :tasks
 
@@ -19,7 +19,6 @@ class DayPlanner
       display_prompt
       input_tasks
       write_tasks(store)
-      clear_tasks(store)
       puts
     end
   end
@@ -35,9 +34,12 @@ class DayPlanner
   end
 
   def read_tasks(store)
-    @tasks = nil
-    store.transaction do
-      @tasks = store["tasks"] || []
+    if test_mode?
+      @tasks = []
+    else
+      store.transaction do
+        @tasks = store["tasks"] || []
+      end
     end
   end
 
@@ -53,19 +55,14 @@ class DayPlanner
 
   def input_tasks
     input = get_string
-      tasks << input
-    end
+    tasks << input
+  end
 
-    def write_tasks(store)
-      store.transaction do
-        store["tasks"] = tasks
-      end
+  def write_tasks(store)
+    store.transaction do
+      store["tasks"] = tasks
     end
-
-    def clear_tasks(store)
-      store.transaction { store["tasks"] = [] } if TEST_INPUTS.empty?
-    end
-
+  end
 
   def format_task(task)
     parsed_task = task.split
