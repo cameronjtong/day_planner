@@ -87,5 +87,8 @@ class DayPlanner
   end
 end
 
+class TaskRepository
+end
+
 task_test = DayPlanner.new
 task_test.main
