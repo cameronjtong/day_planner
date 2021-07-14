@@ -1,6 +1,8 @@
 #!/bin/bash
 trap "echo Exited!; exit;" SIGINT SIGTERM
 
+export DAY_PLANNER_TEST_MODE=true
+
 while true; do
   ag -g '\.rb$' | entr -c -d -p -s 'ruby day_planner.rb'
 done

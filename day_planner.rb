@@ -79,7 +79,7 @@ class DayPlanner
   end
 
   def test_mode?
-    true
+    ENV["DAY_PLANNER_TEST_MODE"] == "true"
   end
 
   def test_input
