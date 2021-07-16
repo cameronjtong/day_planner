@@ -2,6 +2,7 @@
 trap "echo Exited!; exit;" SIGINT SIGTERM
 
 export DAY_PLANNER_TEST_MODE=true
+export DAY_PLANNER_FILENAME=./task_list_test.yml
 
 while true; do
   ag -g '\.rb$' | entr -c -d -p -s 'ruby day_planner.rb'

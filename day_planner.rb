@@ -26,11 +26,7 @@ class DayPlanner
   private
 
   def build_store
-    if test_mode?
-      YAML::Store.new("./task_list_test.yml")
-    else
-      YAML::Store.new("./task_list.yml")
-    end
+    YAML::Store.new(ENV["DAY_PLANNER_FILENAME"])
   end
 
   def read_tasks(store)
