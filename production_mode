@@ -3,4 +3,3 @@
 ENV["DAY_PLANNER_FILENAME"] = "./task_list.yml"
 
 require_relative "day_planner"
-

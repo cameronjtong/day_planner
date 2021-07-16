@@ -51,7 +51,12 @@ class DayPlanner
 
   def input_tasks
     input = get_string
-    tasks << input
+    case input
+    when "clear"
+      @tasks = []
+    else
+      tasks << input
+    end
   end
 
   def write_tasks(store)
@@ -70,7 +75,7 @@ class DayPlanner
     if test_mode?
       test_input
     else
-      gets
+      gets.chomp
     end
   end
 
