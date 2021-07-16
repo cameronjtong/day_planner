@@ -5,7 +5,7 @@
 require "yaml/store"
 
 class DayPlanner
-  TEST_INPUTS = ["12:00 13:00 lift weights", "14:00 14:45 read refactoring"]
+  TEST_INPUTS = ["12:00 13:00 lift weights", "14:00 14:45 read refactoring", "clear"]
 
   attr_reader :tasks
 
@@ -30,12 +30,8 @@ class DayPlanner
   end
 
   def read_tasks(store)
-    if test_mode?
-      @tasks = []
-    else
-      store.transaction do
-        @tasks = store["tasks"] || []
-      end
+    store.transaction do
+      @tasks = store["tasks"] || []
     end
   end
 
