@@ -17,7 +17,7 @@ class DayPlanner
     loop do
       display_tasks
       display_prompt
-      input_tasks
+      handle_input
       write_tasks(store)
       puts
     end
@@ -45,7 +45,7 @@ class DayPlanner
     print "Enter Task Here => "
   end
 
-  def input_tasks
+  def handle_input
     input = get_string
     case input
     when "clear"
