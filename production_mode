@@ -1,3 +1,4 @@
-#!/bin/bash
+#!/Users/camerontong/.rubies/ruby-3.0.1/bin/ruby
 
-ruby day_planner.rb
+require_relative "day_planner"
+
