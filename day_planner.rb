@@ -9,11 +9,14 @@ class DayPlanner
 
   attr_reader :tasks, :task_repository
 
-  def main
-    system "clear"
+  def initialize
     @task_repository = TaskRepository.new
     task_repository.read_tasks
     @tasks = task_repository.tasks
+  end
+
+  def main
+    system "clear"
 
     loop do
       display_tasks
