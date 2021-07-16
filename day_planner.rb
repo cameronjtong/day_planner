@@ -7,33 +7,24 @@ require "yaml/store"
 class DayPlanner
   TEST_INPUTS = ["12:00 13:00 lift weights", "14:00 14:45 read refactoring", "clear"]
 
-  attr_reader :tasks
+  attr_reader :tasks, :task_repository
 
   def main
     system "clear"
-    store = build_store
-    read_tasks(store)
+    @task_repository = TaskRepository.new
+    task_repository.read_tasks
+    @tasks = task_repository.tasks
 
     loop do
       display_tasks
       display_prompt
       handle_input
-      write_tasks(store)
+      task_repository.write_tasks
       puts
     end
   end
 
   private
-
-  def build_store
-    YAML::Store.new(ENV["DAY_PLANNER_FILENAME"])
-  end
-
-  def read_tasks(store)
-    store.transaction do
-      @tasks = store["tasks"] || []
-    end
-  end
 
   def display_tasks
     puts "-- Tasks --"
@@ -49,15 +40,9 @@ class DayPlanner
     input = get_string
     case input
     when "clear"
-      @tasks = []
+      @tasks.clear
     else
       tasks << input
-    end
-  end
-
-  def write_tasks(store)
-    store.transaction do
-      store["tasks"] = tasks
     end
   end
 
@@ -85,6 +70,27 @@ class DayPlanner
 end
 
 class TaskRepository
+  attr_reader :store, :tasks
+
+  def initialize
+    @store = build_store
+  end
+
+  def build_store
+    YAML::Store.new(ENV["DAY_PLANNER_FILENAME"])
+  end
+
+  def read_tasks
+    store.transaction do
+      @tasks = store["tasks"] || []
+    end
+  end
+
+  def write_tasks
+    store.transaction do
+      store["tasks"] = tasks
+    end
+  end
 end
 
 task_test = DayPlanner.new
