@@ -38,6 +38,8 @@ class DayPlanner
     case input
     when "clear"
       tasks.clear
+    when "-1"
+      tasks.shift
     else
       tasks << input
     end
