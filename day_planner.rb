@@ -6,7 +6,7 @@ require "yaml/store"
 require_relative "task_repository"
 
 class DayPlanner
-  TEST_INPUTS = ["12:00 13:00 lift weights", "14:00 14:45 read refactoring", "-1", "clear"]
+  TEST_INPUTS = ["12:00 13:00 lift weights", "14:00 14:45 read refactoring-2", "-2", "clear"]
 
   def main
     system "clear"
@@ -38,8 +38,9 @@ class DayPlanner
     case input
     when "clear"
       tasks.clear
-    when "-1"
-      tasks.shift
+    when /^-\d/
+      task_index = input.to_i.abs - 1
+      tasks.delete_at(task_index)
     else
       tasks << input
     end
