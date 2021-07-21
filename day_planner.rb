@@ -3,6 +3,7 @@
 # be alerted if items overlap in time
 # be prompted at the end of day planner item on compleition status
 require "yaml/store"
+require_relative "task_repository"
 
 class DayPlanner
   TEST_INPUTS = ["12:00 13:00 lift weights", "14:00 14:45 read refactoring", "clear"]
@@ -72,29 +73,6 @@ class DayPlanner
   end
 end
 
-class TaskRepository
-  attr_reader :store, :tasks
-
-  def initialize
-    @store = build_store
-  end
-
-  def build_store
-    YAML::Store.new(ENV["DAY_PLANNER_FILENAME"])
-  end
-
-  def read_tasks
-    store.transaction do
-      @tasks = store["tasks"] || []
-    end
-  end
-
-  def write_tasks
-    store.transaction do
-      store["tasks"] = tasks
-    end
-  end
-end
 
 task_test = DayPlanner.new
 task_test.main
