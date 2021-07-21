@@ -1,7 +1,7 @@
 class TaskRepository
   def self.persist
     build_store.transaction do |store|
-      tasks = store["tasks"] || []
+      tasks = store["tasks"].compact || []
       yield(tasks)
       store["tasks"] = tasks
     end

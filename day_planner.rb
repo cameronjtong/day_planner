@@ -6,7 +6,7 @@ require "yaml/store"
 require_relative "task_repository"
 
 class DayPlanner
-  TEST_INPUTS = ["12:00 13:00 lift weights", "14:00 14:45 read refactoring", "clear"]
+  TEST_INPUTS = ["12:00 13:00 lift weights", "14:00 14:45 read refactoring", "-1", "clear"]
 
   def main
     system "clear"
@@ -53,7 +53,10 @@ class DayPlanner
 
   def get_string
     if test_mode?
-      test_input
+      input = test_input
+      print input
+      input
+
     else
       gets.chomp
     end
