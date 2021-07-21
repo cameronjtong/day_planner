@@ -8,29 +8,22 @@ require_relative "task_repository"
 class DayPlanner
   TEST_INPUTS = ["12:00 13:00 lift weights", "14:00 14:45 read refactoring", "clear"]
 
-  attr_reader :tasks, :task_repository
-
-  def initialize
-    @task_repository = TaskRepository.new
-    task_repository.read_tasks
-    @tasks = task_repository.tasks
-  end
-
   def main
     system "clear"
 
     loop do
-      display_tasks
-      display_prompt
-      handle_input
-      task_repository.write_tasks
-      puts
+      TaskRepository.persist do |tasks|
+        display_tasks(tasks)
+        display_prompt
+        handle_input(tasks)
+        puts
+      end
     end
   end
 
   private
 
-  def display_tasks
+  def display_tasks(tasks)
     puts "-- Tasks --"
     puts tasks.map(&method(:format_task))
     puts
@@ -40,11 +33,11 @@ class DayPlanner
     print "Enter Task Here => "
   end
 
-  def handle_input
+  def handle_input(tasks)
     input = get_string
     case input
     when "clear"
-      @tasks.clear
+      tasks.clear
     else
       tasks << input
     end
@@ -72,7 +65,6 @@ class DayPlanner
     TEST_INPUTS.shift || exit
   end
 end
-
 
 task_test = DayPlanner.new
 task_test.main
