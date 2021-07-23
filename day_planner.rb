@@ -38,18 +38,13 @@ class DayPlanner
   end
 
   def display_prompt
-    print "Enter Task Here => "
+    print "Enter task here => "
   end
 
   def handle_input(tasks)
     input = get_string
-    case input
-    when "clear"
-      ClearAllTasks
-    when /^-\d/
-      DeleteTask
-    else
-      AddTask
+    [ClearAllTasks, DeleteTask, AddTask].find do |candidate|
+      candidate.handles?(input)
     end.new(tasks, input).call
   end
 
@@ -74,12 +69,20 @@ class DayPlanner
 end
 
 class ClearAllTasks < Struct.new(:tasks, :input)
+  def self.handles?(input)
+    input == "clear"
+  end
+
   def call
     tasks.clear
   end
 end
 
 class DeleteTask < Struct.new(:tasks, :input)
+  def self.handles?(input)
+    input == /^-\d/
+  end
+
   def call
     task_index = input.to_i.abs - 1
     tasks.delete_at(task_index)
@@ -87,6 +90,10 @@ class DeleteTask < Struct.new(:tasks, :input)
 end
 
 class AddTask < Struct.new(:tasks, :input)
+  def self.handles?(_input)
+    true
+  end
+
   def call
     tasks << input
   end
