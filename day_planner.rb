@@ -25,8 +25,14 @@ class DayPlanner
 
   def display_tasks(tasks)
     puts "-- Tasks --"
-    puts tasks.map(&method(:format_task))
+    puts tasks.map.with_index { |task, index| format_task(task, index) }
     puts
+  end
+
+  def format_task(task, index)
+    parsed_task = task.split
+    start_time, end_time, *task_description = parsed_task
+    ["#{index + 1}.", start_time, end_time, task_description].join(" ")
   end
 
   def display_prompt
@@ -44,12 +50,6 @@ class DayPlanner
     else
       tasks << input
     end
-  end
-
-  def format_task(task)
-    parsed_task = task.split
-    start_time, end_time, *task_description = parsed_task
-    [start_time, end_time, task_description].join(" ")
   end
 
   def get_string
