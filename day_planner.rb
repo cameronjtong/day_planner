@@ -45,13 +45,12 @@ class DayPlanner
     input = get_string
     case input
     when "clear"
-      tasks.clear
+      ClearAllTasks
     when /^-\d/
-      task_index = input.to_i.abs - 1
-      tasks.delete_at(task_index)
+      DeleteTask
     else
-      tasks << input
-    end
+      AddTask
+    end.new(tasks, input).call
   end
 
   def get_string
@@ -71,6 +70,25 @@ class DayPlanner
 
   def test_input
     TEST_INPUTS.shift || exit
+  end
+end
+
+class ClearAllTasks < Struct.new(:tasks, :input)
+  def call
+    tasks.clear
+  end
+end
+
+class DeleteTask < Struct.new(:tasks, :input)
+  def call
+    task_index = input.to_i.abs - 1
+    tasks.delete_at(task_index)
+  end
+end
+
+class AddTask < Struct.new(:tasks, :input)
+  def call
+    tasks << input
   end
 end
 
