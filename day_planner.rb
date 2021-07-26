@@ -43,13 +43,7 @@ class DayPlanner
 
   def handle_input(tasks)
     input = get_string
-    handle_command(tasks, input)
-  end
-
-  def handle_command(tasks, input)
-    [ClearAllTasks, DeleteTask, AddTask].find do |candidate|
-      candidate.handles?(input)
-    end.new(tasks, input).call
+    Command.handle_command(tasks, input)
   end
 
   def get_string
@@ -72,7 +66,23 @@ class DayPlanner
   end
 end
 
-class ClearAllTasks < Struct.new(:tasks, :input)
+class Command < Struct.new(:tasks, :input)
+  def self.handle_command(tasks, input)
+    registry.find do |candidate|
+      candidate.handles?(input)
+    end.new(tasks, input).call
+  end
+
+  def self.inherited(candidate)
+    registry << candidate
+  end
+
+  def self.registry
+    @@registry ||= []
+  end
+end
+
+class ClearAllTasks < Command
   def self.handles?(input)
     input == "clear"
   end
@@ -82,7 +92,7 @@ class ClearAllTasks < Struct.new(:tasks, :input)
   end
 end
 
-class DeleteTask < Struct.new(:tasks, :input)
+class DeleteTask < Command
   def self.handles?(input)
     input == /^-\d/
   end
@@ -93,7 +103,7 @@ class DeleteTask < Struct.new(:tasks, :input)
   end
 end
 
-class AddTask < Struct.new(:tasks, :input)
+class AddTask < Command
   def self.handles?(_input)
     true
   end
