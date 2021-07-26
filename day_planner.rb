@@ -7,7 +7,7 @@ require_relative "command"
 require_relative "task_repository"
 
 class DayPlanner
-  TEST_INPUTS = ["12:00 13:00 lift weights", "14:00 14:45 read refactoring-2", "-2", "clear"]
+  TEST_INPUTS = ["lift weights", "read refactoring-2", "-2", "clear"]
 
   def main
     system "clear"
@@ -33,9 +33,7 @@ class DayPlanner
   end
 
   def format_task(task, index)
-    parsed_task = task.split
-    start_time, end_time, *task_description = parsed_task
-    ["  #{index + 1}.", start_time, end_time, task_description].join(" ")
+    ["  #{index + 1}.", task].join(" ")
   end
 
   def display_prompt
