@@ -52,7 +52,6 @@ class DayPlanner
       input = test_input
       print input
       input
-
     else
       gets.chomp
     end

@@ -26,7 +26,7 @@ end
 
 class DeleteTask < Command
   def self.handles?(input)
-    input == /^-\d/
+    input =~ /^-\d/
   end
 
   def call
