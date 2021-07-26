@@ -43,6 +43,10 @@ class DayPlanner
 
   def handle_input(tasks)
     input = get_string
+    handle_command(tasks, input)
+  end
+
+  def handle_command(tasks, input)
     [ClearAllTasks, DeleteTask, AddTask].find do |candidate|
       candidate.handles?(input)
     end.new(tasks, input).call
