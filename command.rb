@@ -35,6 +35,15 @@ class DeleteTask < Command
   end
 end
 
+class AddList < Command
+  def self.handles?(input)
+    input.downcase.include?("list")
+  end
+
+  def call
+  end
+end
+
 class AddTask < Command
   def self.handles?(_input)
     true

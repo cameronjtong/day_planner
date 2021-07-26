@@ -1,13 +1,9 @@
-# add items to specific time slots
-# add associated start and end times
-# be alerted if items overlap in time
-# be prompted at the end of day planner item on compleition status
 require "yaml/store"
 require_relative "command"
 require_relative "task_repository"
 
 class DayPlanner
-  TEST_INPUTS = ["lift weights", "read refactoring-2", "-2", "clear"]
+  TEST_INPUTS = ["Grocery List", "lift weights", "read refactoring-2", "-2", "clear"]
 
   def main
     system "clear"
