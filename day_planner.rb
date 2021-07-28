@@ -3,16 +3,16 @@ require_relative "command"
 require_relative "task_repository"
 
 class DayPlanner
-  TEST_INPUTS = ["Grocery List", "lift weights", "read refactoring-2", "-2", "clear"]
+  TEST_INPUTS = ["clear", "Grocery List", "lift weights", "read refactoring-2", "-2"]
 
   def main
     system "clear"
 
     loop do
-      TaskRepository.persist do |tasks|
-        display_tasks(tasks)
+      TaskRepository.persist do |tasks, lists|
+        display_tasks(tasks, lists)
         display_prompt
-        handle_input(tasks)
+        handle_input(tasks, lists)
         puts
       end
     end
@@ -20,12 +20,19 @@ class DayPlanner
 
   private
 
-  def display_tasks(tasks)
+  def display_tasks(tasks, lists)
     puts
     puts "  -- Tasks --"
     puts "  (no tasks)" if tasks.empty?
     puts tasks.map.with_index { |task, index| format_task(task, index) }
     puts
+
+    lists.each do |list|
+      puts
+      puts "  -- #{list} --"
+      puts "  (no tasks)"
+      puts
+    end
   end
 
   def format_task(task, index)
@@ -36,9 +43,9 @@ class DayPlanner
     print "Enter task here => "
   end
 
-  def handle_input(tasks)
+  def handle_input(tasks, lists)
     input = get_string
-    Command.handle_command(tasks, input)
+    Command.handle_command(tasks, lists, input)
   end
 
   def get_string

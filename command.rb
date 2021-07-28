@@ -1,8 +1,8 @@
-class Command < Struct.new(:tasks, :input)
-  def self.handle_command(tasks, input)
+class Command < Struct.new(:tasks, :lists, :input)
+  def self.handle_command(tasks, lists, input)
     registry.find do |candidate|
       candidate.handles?(input)
-    end.new(tasks, input).call
+    end.new(tasks, lists, input).call
   end
 
   def self.inherited(candidate)
@@ -21,6 +21,7 @@ class ClearAllTasks < Command
 
   def call
     tasks.clear
+    lists.clear
   end
 end
 
@@ -41,6 +42,7 @@ class AddList < Command
   end
 
   def call
+    lists << input
   end
 end
 
