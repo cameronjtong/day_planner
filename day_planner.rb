@@ -26,13 +26,7 @@ class DayPlanner
     puts "  (no tasks)" if tasks.empty?
     puts tasks.map.with_index { |task, index| format_task(task, index) }
     puts
-
-    lists.each do |list|
-      puts
-      puts "  -- #{list} --"
-      puts "  (no tasks)"
-      puts
-    end
+    lists.display_lists
   end
 
   def format_task(task, index)
