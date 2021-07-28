@@ -5,5 +5,5 @@ export DAY_PLANNER_TEST_MODE=true
 export DAY_PLANNER_FILENAME=./task_list_test.yml
 
 while true; do
-  ag -g '\.rb$' | entr -c -d -p -s 'ruby day_planner.rb'
+  ag -g '\.rb$' | entr -c -d -p -s 'rm ./task_list_test.yml; ruby day_planner.rb'
 done

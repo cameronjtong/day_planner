@@ -3,10 +3,10 @@ class TaskRepository
   def self.persist
     build_store.transaction do |store|
       tasks = store["tasks"] || []
-      lists = store["lists"] || ListCollection.new
-      yield(tasks, lists)
+      list_collection = store["list_collection"] || ListCollection.new
+      yield(tasks, list_collection)
       store["tasks"] = tasks
-      store["lists"] = lists
+      store["list_collection"] = list_collection
     end
   end
 
