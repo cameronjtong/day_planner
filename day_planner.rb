@@ -20,17 +20,8 @@ class DayPlanner
 
   private
 
-  def display_tasks(tasks, lists)
-    puts
-    puts "  -- Tasks --"
-    puts "  (no tasks)" if tasks.empty?
-    puts tasks.map.with_index { |task, index| format_task(task, index) }
-    puts
+  def display_tasks(_tasks, lists)
     lists.display_lists
-  end
-
-  def format_task(task, index)
-    ["  #{index + 1}.", task].join(" ")
   end
 
   def display_prompt
