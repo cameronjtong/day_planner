@@ -42,7 +42,7 @@ class AddList < Command
   end
 
   def call
-    lists << input
+    lists.add_list(input)
   end
 end
 
@@ -52,6 +52,6 @@ class AddTask < Command
   end
 
   def call
-    tasks << input
+    lists.add_task(input)
   end
 end
