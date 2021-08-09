@@ -9,10 +9,10 @@ class DayPlanner
     system "clear"
 
     loop do
-      TaskRepository.persist do |tasks, lists|
-        display_tasks(tasks, lists)
+      TaskRepository.persist do |lists|
+        display_tasks(lists)
         display_prompt
-        handle_input(tasks, lists)
+        handle_input(lists)
         puts
       end
     end
@@ -20,7 +20,7 @@ class DayPlanner
 
   private
 
-  def display_tasks(_tasks, lists)
+  def display_tasks(lists)
     lists.display_lists
   end
 
@@ -28,9 +28,9 @@ class DayPlanner
     print "Enter task here => "
   end
 
-  def handle_input(tasks, lists)
+  def handle_input(lists)
     input = get_string
-    Command.handle_command(tasks, lists, input)
+    Command.handle_command(lists, input)
   end
 
   def get_string

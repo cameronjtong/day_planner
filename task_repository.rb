@@ -3,10 +3,8 @@ require_relative "task_lists"
 class TaskRepository
   def self.persist
     build_store.transaction do |store|
-      tasks = store["tasks"] || []
       task_lists = store["task_lists"] || TaskLists.new
-      yield(tasks, task_lists)
-      store["tasks"] = tasks
+      yield(task_lists)
       store["task_lists"] = task_lists
     end
   end

@@ -27,6 +27,10 @@ class TaskLists
     @current_list_name = list_name
   end
 
+  def delete_at(task_index)
+    lists[@current_list_name].delete_at(task_index)
+  end
+
   private
 
   def format_task(task, index)
