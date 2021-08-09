@@ -19,7 +19,7 @@ class TaskLists
   end
 
   def add_task(task)
-    lists[@current_list_name] << task
+    current_list << task
   end
 
   def add_list(list_name)
@@ -28,10 +28,14 @@ class TaskLists
   end
 
   def delete_at(task_index)
-    lists[@current_list_name].delete_at(task_index)
+    current_list.delete_at(task_index)
   end
 
   private
+
+  def current_list
+    lists[@current_list_name]
+  end
 
   def format_task(task, index)
     ["  #{index + 1}.", task].join(" ")
