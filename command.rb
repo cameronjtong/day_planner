@@ -14,16 +14,6 @@ class Command < Struct.new(:lists, :input)
   end
 end
 
-class ClearAllTasks < Command
-  def self.handles?(input)
-    input == "clear"
-  end
-
-  def call
-    lists.clear
-  end
-end
-
 class DeleteTask < Command
   def self.handles?(input)
     input =~ /^-\d/

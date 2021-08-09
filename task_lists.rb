@@ -15,9 +15,6 @@ class TaskLists
     end
   end
 
-  def clear
-  end
-
   def add_task(task)
     current_list << task
   end
