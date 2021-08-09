@@ -35,6 +35,16 @@ class AddList < Command
   end
 end
 
+class MoveCurrentListOneUp < Command
+  def self.handles?(input)
+    input =~ /\^/
+  end
+
+  def call
+    lists.move_current_list_one_up
+  end
+end
+
 class AddTask < Command
   def self.handles?(_input)
     true
