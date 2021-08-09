@@ -8,7 +8,11 @@ class TaskLists
   def display_lists
     lists.each do |list_name, tasks|
       puts
-      puts "  -- #{list_name} --"
+      if @current_list_name == list_name
+        puts "  -- #{list_name} -- <<- Current list"
+      else
+        puts "  -- #{list_name} --"
+      end
       puts "  (no tasks)" if tasks.empty?
       puts tasks.map.with_index { |task, index| format_task(task, index) }
       puts
