@@ -1,4 +1,4 @@
-class ListCollection
+class TaskLists
   attr_reader :lists
 
   def initialize
