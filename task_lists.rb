@@ -37,6 +37,11 @@ class TaskLists
     @current_list_name = lists.keys[previous_list_index]
   end
 
+  def move_current_list_one_down
+    next_list_index = lists.keys.index(@current_list_name) + 1
+    @current_list_name = lists.keys[next_list_index]
+  end
+
   private
 
   def current_list

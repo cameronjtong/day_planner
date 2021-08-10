@@ -37,11 +37,21 @@ end
 
 class MoveCurrentListOneUp < Command
   def self.handles?(input)
-    input =~ /\^/
+    input == "^"
   end
 
   def call
     lists.move_current_list_one_up
+  end
+end
+
+class MoveCurrentListOneDown < Command
+  def self.handles?(input)
+    input == "v"
+  end
+
+  def call
+    lists.move_current_list_one_down
   end
 end
 
