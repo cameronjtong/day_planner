@@ -3,7 +3,7 @@ require_relative "command"
 require_relative "task_repository"
 
 class DayPlanner
-  TEST_INPUTS = ["Grocery List", "apples", "bread", "-2", "Reading List", "^", "v"]
+  TEST_INPUTS = ["Grocery List", "apples", "bread", "-2", "Reading List", "^", "v", "v"]
 
   def main
     system "clear"

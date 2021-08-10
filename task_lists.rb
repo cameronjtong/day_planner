@@ -33,16 +33,20 @@ class TaskLists
   end
 
   def move_current_list_one_up
-    previous_list_index = lists.keys.index(@current_list_name) - 1
-    @current_list_name = lists.keys[previous_list_index]
+    previous_list_index = list_names.index(@current_list_name) - 1
+    @current_list_name = list_names[previous_list_index]
   end
 
   def move_current_list_one_down
-    next_list_index = lists.keys.index(@current_list_name) + 1
-    @current_list_name = lists.keys[next_list_index]
+    next_list_index = list_names.index(@current_list_name) + 1
+    @current_list_name = list_names[next_list_index] || list_names.first
   end
 
   private
+
+  def list_names
+    lists.keys
+  end
 
   def current_list
     lists[@current_list_name]
