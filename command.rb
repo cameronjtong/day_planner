@@ -1,5 +1,6 @@
 class Command < Struct.new(:lists, :input)
   def self.handle_command(lists, input)
+    input = input.strip
     registry.find do |candidate|
       candidate.handles?(input)
     end.new(lists, input).call
