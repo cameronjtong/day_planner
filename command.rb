@@ -66,6 +66,16 @@ class IgnoreEmptyInput < Command
   end
 end
 
+class DeleteList < Command
+  def self.handles?(input)
+    input == "-"
+  end
+
+  def call
+    lists.delete_current_list
+  end
+end
+
 class AddTask < Command
   def self.handles?(_input)
     true

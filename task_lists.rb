@@ -42,6 +42,11 @@ class TaskLists
     @current_list_name = list_names[next_list_index] || list_names.first
   end
 
+  def delete_current_list
+    lists.delete(@current_list_name)
+    @current_list_name = list_names.first
+  end
+
   private
 
   def list_names
