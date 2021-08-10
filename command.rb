@@ -56,6 +56,16 @@ class MoveCurrentListOneDown < Command
   end
 end
 
+class IgnoreEmptyInput < Command
+  def self.handles?(input)
+    input == ""
+  end
+
+  def call
+    # no-op
+  end
+end
+
 class AddTask < Command
   def self.handles?(_input)
     true
