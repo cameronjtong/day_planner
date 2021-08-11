@@ -1,7 +1,6 @@
 #!/bin/bash
 trap "echo Exited!; exit;" SIGINT SIGTERM
 
-export DAY_PLANNER_TEST_MODE=true
 export DAY_PLANNER_FILENAME=./task_list_test.yml
 
 while true; do

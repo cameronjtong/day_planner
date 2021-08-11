@@ -3,7 +3,9 @@ require_relative "command"
 require_relative "task_repository"
 
 class DayPlanner
-  TEST_INPUTS = ["Grocery List", "apples", "bread", "-2", "Reading List", "^ ", "v ", "v ", " ", "-"]
+  def initialize(test_inputs = nil)
+    @test_inputs = test_inputs
+  end
 
   def main
     system "clear"
@@ -17,9 +19,6 @@ class DayPlanner
       end
     end
   rescue StandardError
-  end
-
-  def create_list(list_name)
   end
 
   private
@@ -38,7 +37,7 @@ class DayPlanner
   end
 
   def get_string
-    if test_mode?
+    if @test_inputs
       input = test_input
       print input
       input
@@ -47,11 +46,7 @@ class DayPlanner
     end
   end
 
-  def test_mode?
-    ENV["DAY_PLANNER_TEST_MODE"] == "true"
-  end
-
   def test_input
-    TEST_INPUTS.shift || raise
+    @test_inputs.shift || raise
   end
 end
