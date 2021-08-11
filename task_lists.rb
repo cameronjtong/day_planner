@@ -47,11 +47,11 @@ class TaskLists
     @current_list_name = list_names.first
   end
 
-  private
-
   def list_names
     lists.keys
   end
+
+  private
 
   def current_list
     lists[@current_list_name]

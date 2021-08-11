@@ -16,6 +16,10 @@ class DayPlanner
         puts
       end
     end
+  rescue StandardError
+  end
+
+  def create_list(list_name)
   end
 
   private
@@ -48,9 +52,6 @@ class DayPlanner
   end
 
   def test_input
-    TEST_INPUTS.shift || exit
+    TEST_INPUTS.shift || raise
   end
 end
-
-task_test = DayPlanner.new
-task_test.main
