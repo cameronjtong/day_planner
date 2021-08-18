@@ -1,11 +1,12 @@
 require "rspec"
 require_relative "../day_planner"
 
-ENV["DAY_PLANNER_FILENAME"] = "./task_list_test.yml"
-FILENAME = ENV["DAY_PLANNER_FILENAME"]
-
 describe "a day planner" do
-  before { system "rm #{FILENAME}" }
+  let(:test_file) do
+    ENV["DAY_PLANNER_FILENAME"] = "./task_list_test.yml"
+  end
+
+  before { remove_test_file }
 
   it "creates lists" do
     inputs = ["Grocery List"]
@@ -13,6 +14,14 @@ describe "a day planner" do
     lists = process_inputs(inputs)
 
     expect(lists).to eq("Grocery List" => [])
+  end
+
+  it "adds tasks" do
+    inputs = ["Grocery List", "apples"]
+
+    lists = process_inputs(inputs)
+
+    expect(lists).to eq("Grocery List" => ["apples"])
   end
 
   def process_inputs(inputs)
@@ -25,5 +34,9 @@ describe "a day planner" do
     TaskRepository.persist do |lists|
       return lists.lists
     end
+  end
+
+  def remove_test_file
+    system "rm #{test_file}"
   end
 end
