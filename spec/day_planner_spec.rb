@@ -8,21 +8,22 @@ describe "a day planner" do
   before { system "rm #{FILENAME}" }
 
   it "creates lists" do
-    test_inputs = ["Grocery List"]
+    inputs = ["Grocery List"]
 
-    process_inputs(test_inputs)
+    lists = process_inputs(inputs)
 
-    expect(lists.list_names.first).to eq("Grocery List")
+    expect(lists).to eq("Grocery List" => [])
   end
 
-  def process_inputs(test_inputs)
-    day_planner = DayPlanner.new(test_inputs)
+  def process_inputs(inputs)
+    day_planner = DayPlanner.new(inputs)
     expect { day_planner.main }.to output(//).to_stdout
+    task_lists
   end
 
-  def lists
-    TaskRepository.persist do |task_lists|
-      return task_lists
+  def task_lists
+    TaskRepository.persist do |lists|
+      return lists.lists
     end
   end
 end
