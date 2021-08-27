@@ -30,7 +30,7 @@ class DayPlanner
   end
 
   def display_prompt
-    print "\nEnter task here => "
+    print "\nEnter command here => "
   end
 
   def handle_input(lists)

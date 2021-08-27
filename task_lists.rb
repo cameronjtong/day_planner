@@ -19,11 +19,7 @@ class TaskLists
   end
 
   def add_task(task)
-    if current_list
-      current_list << task
-    else
-      puts "Error: No lists, please enter list first."
-    end
+    current_list << task
   end
 
   def add_list(list_name)
