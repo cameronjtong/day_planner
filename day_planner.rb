@@ -3,6 +3,9 @@ require_relative "command"
 require_relative "task_repository"
 
 class DayPlanner
+  class CustomError < StandardError
+  end
+
   def initialize(test_inputs = nil)
     @test_inputs = test_inputs
   end
@@ -15,10 +18,9 @@ class DayPlanner
         display_tasks(lists)
         display_prompt
         handle_input(lists)
-        puts
       end
     end
-  rescue StandardError
+  rescue CustomError
   end
 
   private
@@ -28,7 +30,7 @@ class DayPlanner
   end
 
   def display_prompt
-    print "Enter task here => "
+    print "\nEnter task here => "
   end
 
   def handle_input(lists)
@@ -47,6 +49,6 @@ class DayPlanner
   end
 
   def test_input
-    @test_inputs.shift || raise
+    @test_inputs.shift || raise(CustomError)
   end
 end

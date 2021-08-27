@@ -48,6 +48,30 @@ describe "a day planner" do
     expect(current_list_name).to eq("Grocery List")
   end
 
+  it "can move one list down" do
+    inputs = ["Grocery List", "Reading List", "^", "v"]
+
+    _, current_list_name = process_inputs(inputs)
+
+    expect(current_list_name).to eq("Reading List")
+  end
+
+  it "ignores empty input" do
+    inputs = ["Grocery List", "    "]
+
+    lists, = process_inputs(inputs)
+
+    expect(lists).to eq("Grocery List" => [])
+  end
+
+  it "handles input when no current list" do
+    inputs = ["apples"]
+
+    lists, = process_inputs(inputs)
+
+    expect(lists).to be_empty
+  end
+
   def process_inputs(inputs)
     day_planner = DayPlanner.new(inputs)
     expect { day_planner.main }.to output(//).to_stdout

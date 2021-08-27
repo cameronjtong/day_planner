@@ -15,12 +15,15 @@ class TaskLists
       end
       puts "  (no tasks)" if tasks.empty?
       puts tasks.map.with_index { |task, index| format_task(task, index) }
-      puts
     end
   end
 
   def add_task(task)
-    current_list << task
+    if current_list
+      current_list << task
+    else
+      puts "Error: No lists, please enter list first."
+    end
   end
 
   def add_list(list_name)
