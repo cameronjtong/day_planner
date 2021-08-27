@@ -2,7 +2,7 @@ class Command < Struct.new(:lists, :input)
   def self.handle_command(lists, input)
     input = input.strip
     registry.find do |candidate|
-      candidate.handles?(input, lists)
+      candidate.handles?(lists, input)
     end.new(lists, input).call
   end
 
@@ -16,7 +16,7 @@ class Command < Struct.new(:lists, :input)
 end
 
 class DeleteTask < Command
-  def self.handles?(input, _lists)
+  def self.handles?(_lists, input)
     input =~ /^-\d/
   end
 
@@ -27,7 +27,7 @@ class DeleteTask < Command
 end
 
 class AddList < Command
-  def self.handles?(input, _lists)
+  def self.handles?(_lists, input)
     input.downcase.include?("list")
   end
 
@@ -37,7 +37,7 @@ class AddList < Command
 end
 
 class MoveCurrentListOneUp < Command
-  def self.handles?(input, _lists)
+  def self.handles?(_lists, input)
     input == "^"
   end
 
@@ -47,7 +47,7 @@ class MoveCurrentListOneUp < Command
 end
 
 class MoveCurrentListOneDown < Command
-  def self.handles?(input, _lists)
+  def self.handles?(_lists, input)
     input == "v"
   end
 
@@ -57,7 +57,7 @@ class MoveCurrentListOneDown < Command
 end
 
 class IgnoreEmptyInput < Command
-  def self.handles?(input, _lists)
+  def self.handles?(_lists, input)
     input == ""
   end
 
@@ -67,7 +67,7 @@ class IgnoreEmptyInput < Command
 end
 
 class DeleteList < Command
-  def self.handles?(input, _lists)
+  def self.handles?(_lists, input)
     input == "-"
   end
 
@@ -77,7 +77,7 @@ class DeleteList < Command
 end
 
 class AddTaskWhenNoLists < Command
-  def self.handles?(_input, lists)
+  def self.handles?(lists, _input)
     lists.lists.empty?
   end
 
@@ -88,7 +88,7 @@ end
 
 # AddTask needs to be last
 class AddTask < Command
-  def self.handles?(_input, _lists)
+  def self.handles?(_lists, _input)
     true
   end
 
