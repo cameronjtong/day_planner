@@ -111,12 +111,10 @@ class DisplayHelpPage < Command
 
   def call
     Command.registry.each do |command_class|
-      if command_class.new.help
-        command, explanation = command_class.new.help
-        puts format("%10s - %s", command, explanation)
-      else
-        # no-op
-      end
+      command, explanation = command_class.new.help
+      next unless command
+
+      puts format("%10s - %s", command, explanation)
     end
   end
 end
