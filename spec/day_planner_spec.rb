@@ -72,6 +72,14 @@ describe "a day planner" do
     expect(lists).to be_empty
   end
 
+  it "displays a help page" do
+    inputs = ["Grocery List", "help"]
+
+    lists, = process_inputs(inputs)
+
+    expect(lists).to eq("Grocery List" => [])
+  end
+
   def process_inputs(inputs)
     day_planner = DayPlanner.new(inputs)
     expect { day_planner.main }.to output(//).to_stdout

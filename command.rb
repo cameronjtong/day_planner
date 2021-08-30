@@ -13,11 +13,19 @@ class Command < Struct.new(:lists, :input)
   def self.registry
     @@registry ||= []
   end
+
+  def help
+    # no-op
+  end
 end
 
 class DeleteTask < Command
   def self.handles?(_lists, input)
     input =~ /^-\d/
+  end
+
+  def help
+    ["-#", "Delete task"]
   end
 
   def call
@@ -31,6 +39,10 @@ class AddList < Command
     input.downcase.include?("list")
   end
 
+  def help
+    ["Named list", "Create list"]
+  end
+
   def call
     lists.add_list(input)
   end
@@ -41,6 +53,10 @@ class MoveCurrentListOneUp < Command
     input == "^"
   end
 
+  def help
+    ["^", "Move current list one up"]
+  end
+
   def call
     lists.move_current_list_one_up
   end
@@ -49,6 +65,10 @@ end
 class MoveCurrentListOneDown < Command
   def self.handles?(_lists, input)
     input == "v"
+  end
+
+  def help
+    ["v", "Move current list one down"]
   end
 
   def call
@@ -71,8 +91,33 @@ class DeleteList < Command
     input == "-"
   end
 
+  def help
+    ["-", "Delete list"]
+  end
+
   def call
     lists.delete_current_list
+  end
+end
+
+class DisplayHelpPage < Command
+  def self.handles?(_lists, input)
+    input.downcase == "help"
+  end
+
+  def help
+    ["help", "Display help page"]
+  end
+
+  def call
+    Command.registry.each do |command_class|
+      if command_class.new.help
+        command, explanation = command_class.new.help
+        puts format("%10s - %s", command, explanation)
+      else
+        # no-op
+      end
+    end
   end
 end
 
@@ -90,6 +135,10 @@ end
 class AddTask < Command
   def self.handles?(_lists, _input)
     true
+  end
+
+  def help
+    ["<task>", "Add task"]
   end
 
   def call
