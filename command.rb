@@ -1,18 +1,10 @@
 class Command < Struct.new(:lists, :input)
   def self.handle_command(lists, input)
-    p "A" * 20
-    p lists
-    p input
     input = input.strip
 
     registry.map do |command_class|
-      p "-" * 20
-      p command_class.new(lists, input)
-    end.find do |command|
-      p "=" * 20
-      p command
-      p command.match?
-    end.call
+      command_class.new(lists, input)
+    end.find(&:match?).call
   end
 
   def self.inherited(candidate)
@@ -141,7 +133,6 @@ end
 # AddTask needs to be last
 class AddTask < Command
   def match?
-    p "*" * 80
     input =~ /^at /
   end
 

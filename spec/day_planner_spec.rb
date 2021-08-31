@@ -20,7 +20,7 @@ describe "a day planner" do
     expect(lists).to eq("Grocery List" => [])
   end
 
-  fit "adds tasks" do
+  it "adds tasks" do
     inputs = ["Grocery List", "at apples"]
 
     lists, = process_inputs(inputs)
@@ -29,7 +29,7 @@ describe "a day planner" do
   end
 
   it "deletes tasks" do
-    inputs = ["Grocery List", "apples", "-1"]
+    inputs = ["Grocery List", "at apples", "-1"]
 
     lists, = process_inputs(inputs)
 
@@ -86,8 +86,7 @@ describe "a day planner" do
 
   def process_inputs(inputs)
     day_planner = DayPlanner.new(inputs)
-    day_planner.main
-    # expect { day_planner.main }.#to output(//).to_stdout
+    expect { day_planner.main }.to output(//).to_stdout
     [task_lists.lists, task_lists.current_list_name]
   end
 
