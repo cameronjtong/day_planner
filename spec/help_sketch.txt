@@ -1,0 +1,17 @@
+dt <task-number> - Delete task
+  al <list-name> - Add list
+         mu - Move current list one up
+         md - Move current list one down
+         dl - Delete list
+      help - Display help page
+      at <task> - Add task
+
+
+
+        -# - Delete task
+Named list - Create list
+         ^ - Move current list one up
+         v - Move current list one down
+         - - Delete list
+      help - Display help page
+    <task> - Add task

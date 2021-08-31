@@ -1,10 +1,18 @@
 class Command < Struct.new(:lists, :input)
   def self.handle_command(lists, input)
+    p "A" * 20
+    p lists
+    p input
     input = input.strip
 
     registry.map do |command_class|
-      command_class.new(lists, input)
-    end.find(&:handles?).call
+      p "-" * 20
+      p command_class.new(lists, input)
+    end.find do |command|
+      p "=" * 20
+      p command
+      p command.match?
+    end.call
   end
 
   def self.inherited(candidate)
@@ -21,7 +29,7 @@ class Command < Struct.new(:lists, :input)
 end
 
 class DeleteTask < Command
-  def handles?
+  def match?
     input =~ /^-\d/
   end
 
@@ -36,7 +44,7 @@ class DeleteTask < Command
 end
 
 class AddList < Command
-  def handles?
+  def match?
     input.downcase.include?("list")
   end
 
@@ -50,7 +58,7 @@ class AddList < Command
 end
 
 class MoveCurrentListOneUp < Command
-  def handles?
+  def match?
     input == "^"
   end
 
@@ -64,7 +72,7 @@ class MoveCurrentListOneUp < Command
 end
 
 class MoveCurrentListOneDown < Command
-  def handles?
+  def match?
     input == "v"
   end
 
@@ -78,7 +86,7 @@ class MoveCurrentListOneDown < Command
 end
 
 class IgnoreEmptyInput < Command
-  def handles?
+  def match?
     input == ""
   end
 
@@ -88,7 +96,7 @@ class IgnoreEmptyInput < Command
 end
 
 class DeleteList < Command
-  def handles?
+  def match?
     input == "-"
   end
 
@@ -102,7 +110,7 @@ class DeleteList < Command
 end
 
 class DisplayHelpPage < Command
-  def handles?
+  def match?
     input.downcase == "help"
   end
 
@@ -121,7 +129,7 @@ class DisplayHelpPage < Command
 end
 
 class AddTaskWhenNoLists < Command
-  def handles?
+  def match?
     lists.lists.empty?
   end
 
@@ -132,15 +140,16 @@ end
 
 # AddTask needs to be last
 class AddTask < Command
-  def handles?
-    true
+  def match?
+    p "*" * 80
+    input =~ /^at /
   end
 
   def help
-    ["<task>", "Add task"]
+    ["at <task>", "Add task"]
   end
 
   def call
-    lists.add_task(input)
+    lists.add_task(input[3..])
   end
 end
