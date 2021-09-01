@@ -45,7 +45,7 @@ describe "a day planner" do
   end
 
   it "can move up one list" do
-    inputs = ["al Grocery List", "al Reading List", "^"]
+    inputs = ["al Grocery List", "al Reading List", "mu"]
 
     _, current_list_name = process_inputs(inputs)
 
@@ -53,7 +53,7 @@ describe "a day planner" do
   end
 
   it "can move one list down" do
-    inputs = ["al Grocery List", "al Reading List", "^", "v"]
+    inputs = ["al Grocery List", "al Reading List", "mu", "md"]
 
     _, current_list_name = process_inputs(inputs)
 

@@ -51,11 +51,11 @@ end
 
 class MoveCurrentListOneUp < Command
   def match?
-    input == "^"
+    input == "mu"
   end
 
   def help
-    ["^", "Move current list one up"]
+    ["mu", "Move current list one up"]
   end
 
   def call
@@ -65,11 +65,11 @@ end
 
 class MoveCurrentListOneDown < Command
   def match?
-    input == "v"
+    input == "md"
   end
 
   def help
-    ["v", "Move current list one down"]
+    ["md", "Move current list one down"]
   end
 
   def call
