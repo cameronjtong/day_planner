@@ -13,7 +13,7 @@ describe "a day planner" do
   before { remove_test_file }
 
   it "creates lists" do
-    inputs = ["Grocery List"]
+    inputs = ["al Grocery List"]
 
     lists, = process_inputs(inputs)
 
@@ -21,7 +21,7 @@ describe "a day planner" do
   end
 
   it "adds tasks" do
-    inputs = ["Grocery List", "at apples"]
+    inputs = ["al Grocery List", "at apples"]
 
     lists, = process_inputs(inputs)
 
@@ -29,7 +29,7 @@ describe "a day planner" do
   end
 
   it "deletes tasks" do
-    inputs = ["Grocery List", "at apples", "-1"]
+    inputs = ["al Grocery List", "at apples", "-1"]
 
     lists, = process_inputs(inputs)
 
@@ -37,7 +37,7 @@ describe "a day planner" do
   end
 
   it "deletes lists" do
-    inputs = ["Grocery List", "-"]
+    inputs = ["al Grocery List", "-"]
 
     lists, = process_inputs(inputs)
 
@@ -45,7 +45,7 @@ describe "a day planner" do
   end
 
   it "can move up one list" do
-    inputs = ["Grocery List", "Reading List", "^"]
+    inputs = ["al Grocery List", "al Reading List", "^"]
 
     _, current_list_name = process_inputs(inputs)
 
@@ -53,7 +53,7 @@ describe "a day planner" do
   end
 
   it "can move one list down" do
-    inputs = ["Grocery List", "Reading List", "^", "v"]
+    inputs = ["al Grocery List", "al Reading List", "^", "v"]
 
     _, current_list_name = process_inputs(inputs)
 
@@ -61,7 +61,7 @@ describe "a day planner" do
   end
 
   it "ignores empty input" do
-    inputs = ["Grocery List", "    "]
+    inputs = ["al Grocery List", "    "]
 
     lists, = process_inputs(inputs)
 
@@ -69,7 +69,7 @@ describe "a day planner" do
   end
 
   it "handles input when no current list" do
-    inputs = ["apples"]
+    inputs = ["at apples"]
 
     lists, = process_inputs(inputs)
 
@@ -77,7 +77,7 @@ describe "a day planner" do
   end
 
   it "displays a help page" do
-    inputs = ["Grocery List", "help"]
+    inputs = ["al Grocery List", "help"]
 
     lists, = process_inputs(inputs)
 

@@ -37,15 +37,15 @@ end
 
 class AddList < Command
   def match?
-    input.downcase.include?("list")
+    input =~ /^al /
   end
 
   def help
-    ["Named list", "Create list"]
+    ["al <list-name>", "Add list"]
   end
 
   def call
-    lists.add_list(input)
+    lists.add_list(input[3..])
   end
 end
 
