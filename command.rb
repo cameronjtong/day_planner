@@ -18,6 +18,10 @@ class Command < Struct.new(:lists, :input)
   def help
     # no-op
   end
+
+  def <=>(other)
+    help <=> other.help
+  end
 end
 
 class DeleteTask < Command
@@ -26,7 +30,7 @@ class DeleteTask < Command
   end
 
   def help
-    ["dt <task-number>", "Delete task"]
+    ["dt <task-number>", "Delete task from current list"]
   end
 
   def call
@@ -111,12 +115,15 @@ class DisplayHelpPage < Command
   end
 
   def call
-    Command.registry.each do |command_class|
-      command, explanation = command_class.new.help
-      next unless command
-
-      puts format("%10s - %s", command, explanation)
-    end
+    puts
+    Command.registry
+      .map(&:new)
+      .select(&:help)
+      .sort
+      .each do |candidate|
+        command, explanation = candidate.help
+        puts format("%20s - %s", command, explanation)
+      end
   end
 end
 
@@ -137,7 +144,7 @@ class AddTask < Command
   end
 
   def help
-    ["at <task>", "Add task"]
+    ["at <task>", "Add task to current list"]
   end
 
   def call
