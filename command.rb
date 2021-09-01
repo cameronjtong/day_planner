@@ -89,11 +89,11 @@ end
 
 class DeleteList < Command
   def match?
-    input == "-"
+    input == "dl"
   end
 
   def help
-    ["-", "Delete list"]
+    ["dl", "Delete current list"]
   end
 
   def call
