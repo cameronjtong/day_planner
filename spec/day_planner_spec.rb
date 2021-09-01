@@ -29,7 +29,7 @@ describe "a day planner" do
   end
 
   it "deletes tasks" do
-    inputs = ["al Grocery List", "at apples", "-1"]
+    inputs = ["al Grocery List", "at apples", "dt 1"]
 
     lists, = process_inputs(inputs)
 

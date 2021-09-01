@@ -22,15 +22,15 @@ end
 
 class DeleteTask < Command
   def match?
-    input =~ /^-\d/
+    input =~ /^dt /
   end
 
   def help
-    ["-#", "Delete task"]
+    ["dt <task-number>", "Delete task"]
   end
 
   def call
-    task_index = input.to_i.abs - 1
+    task_index = input[3..].to_i.abs - 1
     lists.delete_at(task_index)
   end
 end
