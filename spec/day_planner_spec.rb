@@ -84,6 +84,14 @@ describe "a day planner" do
     expect(lists).to eq("Grocery List" => [])
   end
 
+  it "handles invalid input" do
+    inputs = ["al Grocery List", "new task"]
+
+    lists, = process_inputs(inputs)
+
+    expect(lists).to eq("Grocery List" => [])
+  end
+
   def process_inputs(inputs)
     day_planner = DayPlanner.new(inputs)
     expect { day_planner.main }.to output(//).to_stdout

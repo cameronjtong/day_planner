@@ -151,3 +151,13 @@ class AddTask < Command
     lists.add_task(input[3..])
   end
 end
+
+class InvalidInput < Command
+  def match?
+    true
+  end
+
+  def call
+    puts "Error: Invalid command, type 'help' to see available commands."
+  end
+end
